@@ -88,7 +88,7 @@ services:
     hostname: "${MINIO_HOSTNAME_NAME}"
     environment:
       TZ: '${TZ}'
-      MINIO_BROWSER_REDIRECT_URL: https://minio.codespaces.ir/
+      MINIO_BROWSER_REDIRECT_URL: https://minio.codespacex.ir/
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:

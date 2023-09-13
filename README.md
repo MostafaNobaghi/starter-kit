@@ -38,31 +38,31 @@ mailhog:1025
 ### Minio
 
 - admin:
-[https://minio.codespaces.ir/](https://minio.codespaces.ir/)
+[https://minio.codespacex.ir/](https://minio.codespacex.ir/)
 - api:
-[https://storage.codespaces.ir/](https://storage.codespaces.ir/app)
+[https://storage.codespacex.ir/](https://storage.codespacex.ir/app)
 
 
 ### Phpmyadmin
 
-- [https://phpmyadmin.codespaces.ir](https://phpmyadmin.codespaces.ir)
+- [https://phpmyadmin.codespacex.ir](https://phpmyadmin.codespacex.ir)
 
 ### PGAdmin
 
-- [https://pgadmin.codespaces.ir/](https://pgadmin.codespaces.ir/)
+- [https://pgadmin.codespacex.ir/](https://pgadmin.codespacex.ir/)
 
 ### Meilisearch
 
-- [https://meilisearch.codespaces.ir](https://meilisearch.codespaces.ir)
+- [https://meilisearch.codespacex.ir](https://meilisearch.codespacex.ir)
 
 ### Mailhog
 
-- [https://mailhog.codespaces.ir/](https://mailhog.codespaces.ir/)
+- [https://mailhog.codespacex.ir/](https://mailhog.codespacex.ir/)
 
 
 ### Selenium
 
-- [https://selenium.codespaces.ir](https://selenium.codespaces.ir)
+- [https://selenium.codespacex.ir](https://selenium.codespacex.ir)
 
 
 # Tools
