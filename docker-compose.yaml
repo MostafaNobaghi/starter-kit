@@ -27,6 +27,8 @@ services:
       MYSQL_ROOT_PASSWORD: "${MARIADB_ROOT_PASSWORD}"
       MYSQL_DATABASE: "${MARIADB_DATABASE}"
       TZ: "${TZ}"
+    ports:
+      - "3306:3306"
     volumes:
       - ./storage/mariadb:/var/lib/mysql
     healthcheck:
@@ -88,7 +90,7 @@ services:
     hostname: "${MINIO_HOSTNAME_NAME}"
     environment:
       TZ: '${TZ}'
-      MINIO_BROWSER_REDIRECT_URL: https://minio.codespacex.ir/
+      MINIO_BROWSER_REDIRECT_URL: http://minio.codespacex.ir/
       MINIO_ROOT_USER: ${MINIO_ROOT_USER}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD}
     volumes:
