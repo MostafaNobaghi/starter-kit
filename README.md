@@ -33,6 +33,12 @@ redis:6379
 ```text
 mailhog:1025
 ```
+```text
+mongodb:27017
+```
+```text
+mongo-express:8081
+```
 
 
 ### Minio
@@ -46,6 +52,10 @@ mailhog:1025
 ### Phpmyadmin
 
 - [https://phpmyadmin.codespacex.ir](https://phpmyadmin.codespacex.ir)
+
+### Mongo-express
+
+- [http://mongoexpress.codespacex.ir:8081](http://mongoexpress.codespacex.ir:8081)
 
 ### PGAdmin
 
