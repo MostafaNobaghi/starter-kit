@@ -6,18 +6,43 @@
 ```bash
 cp .env.example .env
 ```
-- then
-```bash
 
+```bash
 docker network create app
 
 docker compose pull
 
 sudo chown -R 5050:5050 storage/pgadmin/
 
-docker compose up -d mariadb postgres redis minio phpmyadmin pgadmin meilisearch mailhog selenium nginx
-
+docker compose up -d mariadb postgres redis minio phpmyadmin pgadmin meilisearch mailhog selenium nginx dnsmasq
 ```
+
+### Local DNS setup (once per machine)
+
+All services are served under `*.codespacex.ir`. The `dnsmasq` container resolves
+these domains locally so requests never touch the internet, keeping them fast
+regardless of your network quality. Any new `something.codespacex.ir` subdomain
+works automatically — no `/etc/hosts` editing needed.
+
+Run this once after cloning:
+
+```bash
+./setup-dns.sh
+```
+
+The script detects your environment and takes the right path:
+
+| Your machine | What the script does |
+|---|---|
+| No dnsmasq installed | Configures `systemd-resolved` to forward `*.codespacex.ir` to the Docker `dnsmasq` container (`127.0.0.2:53`) |
+| dnsmasq already running | Adds a drop-in config to your existing dnsmasq (`/etc/dnsmasq.d/codespacex.conf`) — the Docker container is not needed and can be omitted from `docker compose up` |
+
+**Also disable DNS-over-HTTPS in your browser** (DoH bypasses the system resolver
+entirely and must be turned off separately):
+
+- Firefox: `about:config` → set `network.trr.mode` to `5`
+- Chrome: Settings → Privacy and security → Security → turn off **Use secure DNS**
+
 
 ### Ports
 
@@ -43,36 +68,33 @@ mongo-express:8081
 
 ### Minio
 
-- admin:
-[https://minio.codespacex.ir/](https://minio.codespacex.ir/)
-- api:
-[https://storage.codespacex.ir/](https://storage.codespacex.ir/app)
+- admin: [http://minio.codespacex.ir/](http://minio.codespacex.ir/)
+- api: [http://storage.codespacex.ir/](http://storage.codespacex.ir/)
 
 
 ### Phpmyadmin
 
-- [https://phpmyadmin.codespacex.ir](https://phpmyadmin.codespacex.ir)
+- [http://phpmyadmin.codespacex.ir](http://phpmyadmin.codespacex.ir)
 
 ### Mongo-express
 
-- [http://mongoexpress.codespacex.ir:8081](http://mongoexpress.codespacex.ir:8081)
+- [http://mongoexpress.codespacex.ir](http://mongoexpress.codespacex.ir)
 
 ### PGAdmin
 
-- [https://pgadmin.codespacex.ir/](https://pgadmin.codespacex.ir/)
+- [http://pgadmin.codespacex.ir/](http://pgadmin.codespacex.ir/)
 
 ### Meilisearch
 
-- [https://meilisearch.codespacex.ir](https://meilisearch.codespacex.ir)
+- [http://meilisearch.codespacex.ir](http://meilisearch.codespacex.ir)
 
 ### Mailhog
 
-- [https://mailhog.codespacex.ir/](https://mailhog.codespacex.ir/)
-
+- [http://mailhog.codespacex.ir/](http://mailhog.codespacex.ir/)
 
 ### Selenium
 
-- [https://selenium.codespacex.ir](https://selenium.codespacex.ir)
+- [http://selenium.codespacex.ir](http://selenium.codespacex.ir)
 
 
 # Tools
