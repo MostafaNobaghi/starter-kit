@@ -44,6 +44,51 @@ entirely and must be turned off separately):
 - Chrome: Settings → Privacy and security → Security → turn off **Use secure DNS**
 
 
+### Accessing containers
+
+Every container on the `app` network is reachable through nginx in three ways.
+All are automatic — start a container and it's served, no per-container config.
+
+| Method | URL | Path handling |
+|---|---|---|
+| **Subdomain** | `http://<name>.codespacex.ir/` | full path forwarded to the container |
+| **Subfolder (literal name)** | `http://codespacex.ir/<name>/` | the `<name>` segment is stripped, the rest is forwarded |
+| **Subfolder (friendly)** | `http://codespacex.ir/<path>/` | full path forwarded (for `sanjeman_*` apps) |
+
+The first two need no setup at all. For example, a `phpmyadmin` container is
+reachable at both [http://phpmyadmin.codespacex.ir](http://phpmyadmin.codespacex.ir)
+and [http://codespacex.ir/phpmyadmin](http://codespacex.ir/phpmyadmin).
+
+**Friendly subfolder routes** give `sanjeman_*` containers a short, production-like
+path. They strip the `sanjeman_` prefix and turn `_` into `/`:
+
+| Container | Friendly URL |
+|---|---|
+| `sanjeman_core` | [http://codespacex.ir/core](http://codespacex.ir/core) |
+| `sanjeman_sanjup_api` | [http://codespacex.ir/sanjup/api](http://codespacex.ir/sanjup/api) |
+
+These are for apps that are **mounted under the subfolder** — the subfolder is part
+of every route in the app, exactly as on production. nginx forwards the full path
+unchanged, so a friendly route behaves identically to its subdomain:
+
+```text
+http://codespacex.ir/sanjup/api/health  ==  http://sanjup.codespacex.ir/sanjup/api/health
+```
+
+Because the container can't always be inferred from a multi-segment URL alone
+(`/sanjup/api/...` → `sanjeman_sanjup` or `sanjeman_sanjup_api`?), these routes are
+generated into `src/conf.d/app-routes/app-routes.conf` (sorted longest-first so
+nested paths win) and included by nginx. Regenerate after adding or removing a
+`sanjeman_*` container:
+
+```bash
+./regen-routes.sh
+```
+
+The generated `app-routes.conf` is gitignored. Defaults can be overridden with env
+vars: `APP_ROUTE_PREFIX=sanjeman APP_DOCKER_NETWORK=app`.
+
+
 ### Ports
 
 ```text
